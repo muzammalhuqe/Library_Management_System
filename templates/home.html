@@ -1,0 +1,46 @@
+{% extends 'base.html' %} {% load static %} {% block content %}
+
+<div class="d-flex flex-wrap px-5 pt-3 align-items-center">
+  <div class="col-6">
+    <h1>Welcome to Our Library</h1>
+    <p>
+        Library management systems help libraries keep track of their documents inventory and loans, and member subscriptions and profiles, sometimes for multiple physical locations. Libraries rely on library management systems to manage asset collections as well as relationships with their members. This type of software solution can be used by educational institutions’ libraries, as well as public or private libraries. Library patrons use library management systems to find, reserve, and loan documents while library staffs employ it to manage the acquisition, cataloging, and inventory of documents.
+    </p>
+  </div>
+  <div class="col-6 ">
+    <img src="{% static 'main.png' %}" class="img-fluid" alt="Responsive image">
+  </div>
+</div>
+
+
+<div class="d-flex flex-wrap p-4">
+    <div class="col-2 bg-white p-3" >
+      <h5>All Categories</h5>
+      {% for cat in categories %}
+      <div class="form-check">
+        <input class="form-check-input"type="radio"name="categories"id="{{cat.id}}">
+        <label class="form-check-label" for="{{cat.title}}"> 
+          <a href="{% url 'book_wise_category' cat.slug %}" class="text-decoration-none" >{{cat.name}}</a> </label>
+      </div>
+      {% endfor %}
+    </div>
+  <div class="col-10 p-3">
+    <h4>{{data | length}} results found</h4>
+    <div class="d-flex flex-wrap pt-5">
+      {% for d in data %}
+      <div class="col-sm-3">
+        <div class="card m-2">
+          <div class="card-body">
+            <img class="card-img-top p-1" src="{{ d.image.url }}" alt="Card image cap">
+            <h4 class="card-title"><a href="{% url 'book_details' d.id %}" class="text-decoration-none text-dark">Title : {{d.title}}</a></h4>
+            <p class="card-text"><b>Details :</b> {{d.description |truncatewords:10 }}</p>
+            <p class="card-text btn btn-warning">Price : ${{d.price}}</p>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+{% endblock %}

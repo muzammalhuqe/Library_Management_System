@@ -1,0 +1,41 @@
+{% extends "base.html" %} 
+{% block content %}
+
+<h1>Welcome to Profile</h1>
+<h1>Account Holder Name : {{user}}</h1>
+<h1>Account Number : {{user.account}}</h1>
+<br>
+
+<br />
+<h2>Borrow Book History</h2>
+    <div class="row justify-content-center align-items-center p-3">
+        <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">id</th>
+                <th scope="col">Book Name</th>
+                <th scope="col">Price</th>
+                <th scope="col">Balance After Borrowing Book</th>
+                <th scope="col">Borrowed Date & Time</th>
+                <th scope="col">Return Book</th>
+              </tr>
+            </thead>
+            <tbody>
+                {% for b in borrow %}
+                <tr>
+                    <th scope="row">{{b.book.id}}</th>
+                    <td>{{b.book.title}}</td>
+                    <td>${{b.book.price}}</td>
+                    <td>{{b.user.account.balance}}</td>
+                    <td>{{b.borrow_date}}</td>
+                    {% if not b.returned %}
+                    <td><h5><a href="{% url 'return_book' b.book.id %}" class="card-text btn btn-primary">Return Book</a></h5></td>
+                    {% else %}
+                    <td><p class="card-text btn btn-warning">Book Returned</p></td>
+                    {% endif %}
+                </tr>
+                {% endfor %}
+            </tbody>
+          </table>
+    </div>
+{% endblock %}

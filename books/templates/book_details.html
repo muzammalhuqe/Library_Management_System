@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+
+
+<div class="col-12">
+  <div class="card m-2">
+    <div class="card-body row">
+      <div class="col-6">
+        <img class="card-img-top" src="{{book_details.image.url}}"alt="Card image cap"style="width: 100%"/>
+      </div>
+      <div class="col-6" style="margin-top: 10%">
+        <h1 class="card-title"> Title : {{ book_details.title }}</h1> <br>
+        <p class="card-text"> <b>Description :</b> {{ book_details.description }}</p> <br>
+        <h5><p class="card-text"> Quantity : {{book_details.quantity }}</p></h5><br>
+        <h5><p class="card-text"> Price : ${{book_details.price }}</p></h5><br>
+        <h5><p class="card-text"> Categories : {{book_details.category.name }}</p></h5><br> <br>
+        {% if user.is_authenticated %}
+          <h5><a href="{% url 'borrow_book' book_details.id %}" class="card-text btn btn-primary">Borrow Book</a></h5>
+          {% comment %} {% url 'book' data.id %} {% endcomment %}
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+<div class="card m-2">
+    <h5 class="p-3">Total Comment : {{comments | length}}</h5>
+    {% for com in comments %}
+    <div class="card-body border m-2">
+      <p><b>{{com.name}}</b> {{com.created_on}}</p>
+      <p>{{com.body}}</p>
+    </div>
+    {% endfor %}
+  </div>
+{% comment %} <div class="card m-2">
+    <div class="card-body">
+      <form method="post">
+        <h1>Add Comment</h1>
+        {% csrf_token %} {{comment_form | crispy}}
+        <button class="btn btn-warning">Submit</button>
+      </form>
+    </div>
+</div> {% endcomment %}
+{% if user.is_authenticated %}
+    <div class="card m-2">
+        <div class="card-body">
+            <form method="post">
+                <h1>Add Comment</h1>
+                {% csrf_token %} {{ comment_form | crispy }}
+                <button class="btn btn-warning">Submit</button>
+            </form>
+        </div>
+    </div>
+{% endif %}
+
+{% endblock %}
