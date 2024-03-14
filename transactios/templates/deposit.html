@@ -1,17 +1,18 @@
 {% extends "base.html" %}
 {% block content %}
 
-<html>
-<head>
-    <title>Deposit</title>
-</head>
-<body>
-    <h2>Deposit Money</h2>
-    <form method="post" action="">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Deposit</button>
-    </form>
-</body>
-</html>
+
+<div>
+    <div><title>Deposit</title></div>
+    <div><h2>Deposit Money</h2>
+        <form method="post" action="">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Deposit</button>
+        </form></div>
+</div>
+    
+
+    
+
 {% endblock  %}

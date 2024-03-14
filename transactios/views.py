@@ -115,26 +115,3 @@ class ReturnBookView(LoginRequiredMixin, View):
             return render(request, 'return_book.html')
 
 
-# class ReturnBookView(LoginRequiredMixin, View):
-#     def get(self, request, id):
-#         book = get_object_or_404(BookDetails, pk=id)
-        
-#         if book.quantity > 0:
-#             user_profile = UserAccount.objects.get(user=request.user)
-#             if user_profile.balance >= book.price:
-#                 borrow = BorrowBook(user=request.user, book=book)
-#                 borrow.save()
-
-#                 book.quantity += 1
-#                 book.save()
-
-#                 user_profile.balance += book.price
-#                 user_profile.save()
-#                 send_borrow_email(self.request.user, "Return Message", "return_book_email.html")
-
-#                 return redirect('profile')
-#             else:
-#                 return render(request, 'return_book.html') 
-#         else:
-#             return render(request, 'return_book.html')
-        

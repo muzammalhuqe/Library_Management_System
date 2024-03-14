@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
-import dj_database_url
+import os
 import environ
 env = environ.Env()
 environ.Env.read_env()
@@ -30,7 +30,8 @@ SECRET_KEY = 'django-insecure-fojorj@*ke^v%(_hln7%fwikgpwai_dqib02*kz+2*i9=(53x#
 DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
-CSRF_TRUSTED_ORIGINS = ['https://our-library-omv9.onrender.com','https://*.127.0.0.1']
+# CSRF_TRUSTED_ORIGINS = ['https://our-library-omv9.onrender.com','https://*.127.0.0.1']
+CSRF_TRUSTED_ORIGINS = ['http://127.0.0.1:8000','https://*.127.0.0.1']
 
 
 # Application definition
@@ -138,6 +139,8 @@ STATIC_URL = 'static/'
 STATICFILES_DIRS = [
     BASE_DIR / 'static',
 ]
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
