@@ -3,6 +3,7 @@ from django.contrib.auth.views import LoginView, LogoutView
 from django.views.generic.edit import CreateView
 from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
+from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.tokens import default_token_generator
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
@@ -72,9 +73,11 @@ class UserLoginView(LoginView):
     def get_success_url(self):
         return reverse_lazy('profile')
 
-class UserLogoutView(LogoutView):
-    def get_success_url(self):
-        return reverse_lazy('login')
+
+@login_required
+def logout_view(request):
+    logout(request)
+    return redirect('login')
     
 
 def profile(request):
